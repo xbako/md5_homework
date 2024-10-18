@@ -14,8 +14,6 @@ def dylib():
 
 oper_id = ctypes.c_size_t(0)
 
-########################################## INIT ######################################
-
 
 def test_init(dylib):
     HelperClass.init(dylib, Code.HASH_ERROR_OK)

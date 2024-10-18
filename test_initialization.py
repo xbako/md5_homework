@@ -39,7 +39,7 @@ def test_init(dylib):
 
 
 def test_init_already_initialized(dylib):
-    HelperClass.init(dylib, Code.HASH_ERROR_ALREADY_INITIALIZED)
+    HelperClass.init(dylib, Code.HASH_ERROR_ALREADY_INITIALIZED) ##FAIL HASH_ERROR_OK
 
 
 def test_terminate_sunny(dylib):
