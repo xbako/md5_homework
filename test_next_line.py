@@ -5,33 +5,30 @@ import pytest
 from test_parent import \
     Code, \
     HelperClass
-import hashlib
 
 
 @pytest.fixture(scope='module')
 def dylib():
-    print("\n------------------------setup------------------------")
-    lib_path = 'resources/bin/mac/libhash.dylib'
-    dylib = ctypes.CDLL(lib_path)
+    dylib = HelperClass.init_lib()
     yield dylib
     print("\n------------------------teardown------------------------")
-    HelperClass().terminate(dylib, Code.HASH_ERROR_OK)
+    HelperClass.terminate(dylib, Code.HASH_ERROR_OK)
 
 
 def test_init(dylib):
-    HelperClass().init(dylib, Code.HASH_ERROR_OK)
+    HelperClass.init(dylib, Code.HASH_ERROR_OK)
 
 
 oper_id = ctypes.c_size_t(0)
 
 
 def test_directory_identical(dylib):
-    HelperClass().directory(dylib, b"resources/files/identical_two", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
-    HelperClass().hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
-    HelperClass().directory(dylib, b"resources/files/tree", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
-    HelperClass().hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
-    HelperClass().directory(dylib, b"resources/files/different_two", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
-    HelperClass().hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
+    HelperClass.directory(dylib, b"resources/files/identical_two", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
+    HelperClass.hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
+    HelperClass.directory(dylib, b"resources/files/tree", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
+    HelperClass.hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
+    HelperClass.directory(dylib, b"resources/files/different_two", ctypes.pointer(oper_id), Code.HASH_ERROR_OK)
+    HelperClass.hashStatusWaiting(dylib, oper_id, Code.HASH_ERROR_OK)
 
 
 def test_hashes_match_and_validated(dylib):
@@ -51,4 +48,4 @@ def check_hash_free(dylib, hashh):
 
 
 def test_stop(dylib):
-    HelperClass().stop(dylib, oper_id.value, Code.HASH_ERROR_OK)
+    HelperClass.stop(dylib, oper_id.value, Code.HASH_ERROR_OK)
