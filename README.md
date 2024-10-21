@@ -18,3 +18,6 @@ test_directory_hash_status_next_line.py
 2. Volal jsem HashStatus s operation_id None a vracel HASH_ERROR_OK. Očekával jsem HASH_ERROR_ARGUMENT_NULL.
 3. Volal jsem HashStatus s invalidným druhým argumentem a vracel HASH_ERROR_OK. Očekával jsem HASH_ERROR_ARGUMENT_INVALID.
 4. Volal jsem HashDirectory a místo druhého argumentu jsem posílal invalidní argument a vracel HASH_ERROR_OK. Očekával jsem HASH_ERROR_ARGUMENT_INVALID.
+
+test_hash_output_random_input.py
+1. Test generuje random inputt text, který dále použit pro MD5 hashování. Jednou se input hashoval přes knihovnu hashlib a jindy přes testovanou dylib knihovnu. Výsledky se lišily, dylib výsledkům chybí určité 0, ale ne pokaždé. 
